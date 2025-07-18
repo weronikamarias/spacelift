@@ -1,9 +1,7 @@
-output "bucket_name" {
-  description = "The name of the created S3 bucket"
-  value       = aws_s3_bucket.example.bucket
+output "security_group_id" {
+  value = aws_security_group.example.id
 }
 
-output "bucket_arn" {
-  description = "The ARN of the created S3 bucket"
-  value       = aws_s3_bucket.example.arn
+output "security_group_name" {
+  value = aws_security_group.example.name
 }
