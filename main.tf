@@ -1,32 +1,35 @@
-terraform {
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 5.0"
-    }
-    random = {
-      source  = "hashicorp/random"
-      version = "~> 3.0"
-    }
-  }
-}
-
 provider "aws" {
-  region = var.aws_region
+  region = "us-east-1"
 }
 
-resource "random_id" "suffix" {
-  byte_length = 4
-}
+resource "aws_security_group" "example" {
+  name        = "spacelift-sg"
+  description = "Spacelift test SG"
+  vpc_id      = "vpc-12345678"
 
-resource "aws_s3_bucket" "example" {
-  bucket        = "${var.bucket_prefix}-${random_id.suffix.hex}"
-  force_destroy = true
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["192.168.0.0/16"]
+  }
+
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
 
   tags = {
-    Environment = var.environment
-    Owner       = var.owner
-    Project     = var.project
-    Purpose = "spacelift-test"
+    Purpose = "updated"
+    Env     = "dev"
   }
 }
