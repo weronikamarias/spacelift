@@ -1,5 +1,5 @@
 provider "aws" {
-  region = "us-east-1"
+  region = "us-east-1" # Testing plugin visibility - remove this later
 }
 
 resource "aws_security_group" "example" {
