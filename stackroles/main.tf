@@ -1,14 +1,6 @@
-terraform {
-  required_providers {
-    spacelift = {
-      source = "spacelift-io/spacelift"
-    }
-  }
-}
-
 resource "spacelift_stack" "created_by_stack" {
   name       = "test-created-by-admin-stack"
-  repository = "your-org/your-repo"
+  repository = "spacelift-io/terraform-starter"
   branch     = "main"
-  space_id   = "space-a-01JH33WBRPD0X1813SC7C44SK0"
+  # No space_id = inherits from parent stack
 }
